@@ -1,0 +1,132 @@
+@import '~antd/dist/antd.css';  
+
+/* BOOK */
+@font-face {
+    font-family: "SVN-Gotham";
+    src: url("assets/fonts/GothamBook/SVN-GothamBook.otf") format("OpenType");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "SVN-Gotham";
+    src: url("assets/fonts/GothamBook/SVN-GothamBookItalic.otf") format("OpenType");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+/* LIGHT */
+@font-face {
+    font-family: "SVN-Gotham";
+    src: url("assets/fonts/GothamLight/SVN-GothamLight.otf") format("OpenType");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "SVN-Gotham";
+    src: url("assets/fonts/GothamLight/SVN-GothamLightItalic.otf") format("OpenType");
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+/* ITALIC */
+@font-face {
+    font-family: "SVN-Gotham";
+    src: url("assets/fonts/GothamItalic/SVN-GothamItalic.otf") format("OpenType");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+/* ULTRA */
+@font-face {
+    font-family: "SVN-Gotham Ultra";
+    src: url("assets/fonts/GothamUltra/SVN-GothamUltra.otf") format("OpenType");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "SVN-Gotham Ultra";
+    src: url("assets/fonts/GothamUltra/SVN-GothamUltraItalic.otf") format("OpenType");
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+/* THIN */
+@font-face {
+    font-family: "SVN-Gotham";
+    src: url("assets/fonts/GothamThin/SVN-GothamThin.otf") format("OpenType");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "SVN-Gotham";
+    src: url("assets/fonts/GothamThin/SVN-GothamThinItalic.otf") format("OpenType");
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* GOTHAM */
+@font-face {
+    font-family: "SVN-Gotham";
+    src: url("assets/fonts/Gotham/SVN-Gotham.otf") format("OpenType");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+/* XLIGHT */
+@font-face {
+    font-family: "SVN-Gotham XLight";
+    src: url("assets/fonts/GothamXLight/SVN-GothamXLight.otf") format("OpenType");
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "SVN-Gotham XLight";
+    src: url("assets/fonts/GothamXLight/SVN-GothamXLightItalic.otf") format("OpenType");
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* BLACK */
+@font-face {
+    font-family: "SVN-Gotham";
+    src: url("assets/fonts/GothamBlack/SVN-GothamBlack.otf") format("OpenType");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "SVN-Gotham";
+    src: url("assets/fonts/GothamBlack/SVN-GothamBlackItalic.otf") format("OpenType");
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* BOLD */
+@font-face {
+    font-family: "SVN-Gotham";
+    src: url("assets/fonts/GothamBold/SVN-GothamBold.otf") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "SVN-Gotham";
+    src: url("assets/fonts/GothamBold/SVN-GothamBoldItalic.otf") format("OpenType");
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+body {
+    font-family: "SVN-Gotham";
+}
