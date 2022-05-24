@@ -129,4 +129,7 @@
 
 body {
     font-family: "SVN-Gotham";
-}
+    max-width: 1200px;
+    margin: auto;
+    overflow-x: hidden;
+} 

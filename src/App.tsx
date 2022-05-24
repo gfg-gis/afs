@@ -6,7 +6,7 @@ import {
 import { Result } from "antd";
 import "App.css";
 import { AdminLayout } from "layouts";
-import { Admin, Chart, Home, Login, Report, ReportLog } from "pages";
+import { Admin, Dashboard, Declare, Login, Report, ReportLog } from "pages";
 import React from "react";
 import { Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useAppSelector } from "store";
@@ -18,7 +18,7 @@ const CustomRoutes = () => {
 
 	if (!isAuthenticated) return <Navigate to="/login" state={{ from: location }} replace />;
 
-	return <Navigate to="/" state={{ from: location }} replace />;
+	return <Navigate to="/dashboard" state={{ from: location }} replace />;
 };
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
@@ -58,8 +58,8 @@ const App = () => {
 			<AuthenticatedTemplate>
 				<Routes>
 					<Route element={<AdminLayout />}>
-						<Route path="/" element={<Home />} />
-						<Route path="/chart" element={<Chart />} />
+						<Route path="/dashboard" element={<Dashboard />} />
+						<Route path="/declare" element={<Declare />} />
 						<Route
 							path="/report"
 							element={

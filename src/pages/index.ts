@@ -1,5 +1,6 @@
 export * from "./Login";
-export * from "./Home";
+export * from "./Dashboard";
+export * from "./Declare";
 export * from "./Chart";
 export * from "./Report";
 export * from "./ReportLog";

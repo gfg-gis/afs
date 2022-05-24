@@ -18,24 +18,37 @@ export const Admin = () => {
 	const { t } = useTranslation();
 
 	return (
-		<Row style={{ padding: 20 }}>
+		<Row
+			style={{
+				padding: "40px 0px",
+			}}>
 			<Col span={24}>
-				<TabsCustom defaultActiveKey="2" type="card" onChange={() => {}}>
-					<TabPane tab={t("Create User")} key="1">
-						<Row gutter={[0, 20]} justify="center">
-							<Col xs={{ span: 20 }} md={{ span: 18 }} lg={{ span: 8 }}>
-								<FormAdmin />
-							</Col>
-						</Row>
-					</TabPane>
-					<TabPane tab={t("User List")} key="2">
-						<Row gutter={[0, 20]} justify="center">
-							<Col span={24}>
-								<TableAdmin />
-							</Col>
-						</Row>
-					</TabPane>
-				</TabsCustom>
+				<Row
+					style={{
+						padding: 20,
+						borderTop: `1px solid ${COLOR_GREEN}`,
+						borderRadius: 6,
+						boxShadow: "0 .125rem .25rem rgba(0,0,0,.075)",
+					}}>
+					<Col span={24}>
+						<TabsCustom defaultActiveKey="2" type="card" onChange={() => {}}>
+							<TabPane tab={t("Create User")} key="1">
+								<Row gutter={[0, 20]} justify="center">
+									<Col xs={{ span: 20 }} md={{ span: 18 }} lg={{ span: 8 }}>
+										<FormAdmin />
+									</Col>
+								</Row>
+							</TabPane>
+							<TabPane tab={t("User List")} key="2">
+								<Row gutter={[0, 20]} justify="center">
+									<Col span={24}>
+										<TableAdmin />
+									</Col>
+								</Row>
+							</TabPane>
+						</TabsCustom>
+					</Col>
+				</Row>
 			</Col>
 		</Row>
 	);

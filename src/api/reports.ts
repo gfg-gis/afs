@@ -4,6 +4,8 @@ import { Response, Reports } from "models";
 interface ReportChart {
   infected: 0 | 1;
   isChart: true | false;
+  from_date?: string;
+  to_date?: string;
 }
 
 interface ReportChartHistory {
@@ -16,6 +18,18 @@ interface ResponseReportChart {
   key: number;
   value: number;
   code: string; 
+  matp: string;
+  province: string;
+}
+
+interface TotalReports {
+  infected: number;
+  not_infected: number;
+  total: number;
+}
+
+interface ResponseTotalReports extends Omit<Response<TotalReports>, "data"> {
+  data: TotalReports;
 }
 
 const reports = api.injectEndpoints({
@@ -57,6 +71,15 @@ const reports = api.injectEndpoints({
       },
     }),
 
+    getTotalReports: build.query<ResponseTotalReports, void>({
+      query: () => { 
+        return {
+          url: "/reports",
+          params: { isTotal: 1 },
+        };
+      },
+    }),
+
     getReportChartHistory: build.query<Response<Reports>, ReportChartHistory>({
       query: (query) => { 
         return {
@@ -68,4 +91,4 @@ const reports = api.injectEndpoints({
   }),
 });
 
-export const { useCreateReportMutation, useUpdateReportMutation, useGetReportsQuery, useGetReportChartQuery, useGetReportChartHistoryQuery } = reports;
+export const { useCreateReportMutation, useUpdateReportMutation, useGetReportsQuery, useGetTotalReportsQuery, useGetReportChartQuery, useGetReportChartHistoryQuery } = reports;

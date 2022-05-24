@@ -7,10 +7,23 @@ import { Reports } from "models";
 import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FORMAT_DATE } from "../../constants";
-import MapChart from "./components/MapChart";
+import { FORMAT_DATE } from "../../../constants";
+import { MapChart } from "./MapChart";
 
-export const Chart = () => {
+interface DataReportChart {
+	code: string;
+	id: number;
+	key: number;
+	matp: string;
+	province: string;
+	value: number;
+}
+
+interface ChartProps {
+	dataReportChart: DataReportChart[];
+}
+
+export const Chart = ({ dataReportChart }: ChartProps) => {
 	const { t } = useTranslation();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -148,7 +161,7 @@ export const Chart = () => {
 				visible={isModalVisible}>
 				<Table columns={columns} dataSource={data?.data || []} loading={isLoading} scroll={{ x: 400 }} />
 			</Modal>
-			<MapChart handleClickChart={handleClickChart} />
+			<MapChart handleClickChart={handleClickChart} dataReportChart={dataReportChart} />
 		</>
 	);
 };
