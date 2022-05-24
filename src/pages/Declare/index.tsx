@@ -24,6 +24,7 @@ import { removeAccents } from "helpers";
 import moment from "moment";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useAppSelector } from "store";
 import { COLOR_GREEN, FARM_TYPE, FORMAT_DATE } from "../../constants";
 
 const { Text } = Typography;
@@ -32,6 +33,8 @@ const { TextArea } = Input;
 export const Declare = () => {
 	const { t } = useTranslation();
 	const [form] = Form.useForm();
+
+	const userInfo = useAppSelector((state) => state.user.info);
 
 	const [valueProvince, setValueProvince] = useState<null | string>(null);
 	const [valueDistrict, setValueDistrict] = useState<null | string>(null);
@@ -71,9 +74,8 @@ export const Declare = () => {
 
 		const post = {
 			report_date: moment(created_date).format("YYYY-MM-DD"),
-			// report_date: moment(created_date).format(FORMAT_DATE),
-			created_name: "userInfofullName",
-			created_email: "userInfoemail",
+			created_name: userInfo?.fullName as string,
+			created_email: userInfo?.email as string,
 			disease_id,
 			province_id,
 			district_id,
