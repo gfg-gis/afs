@@ -20,7 +20,7 @@ export const Dashboard = () => {
 	if (isFetching) return <PageLoading />;
 
 	return (
-		<Row gutter={[30, 30]} justify="center" style={{ padding: "40px 0px" }}>
+		<Row gutter={[40, 40]} justify="center" style={{ padding: "40px 0px" }}>
 			{md && (
 				<Col span={24}>
 					<HighLightCard />
