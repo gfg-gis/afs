@@ -20,32 +20,28 @@ export const Dashboard = () => {
 	if (isFetching) return <PageLoading />;
 
 	return (
-		<Row style={{ padding: "40px 0px" }}>
-			<Col span={24}>
-				<Row gutter={[30, 30]}>
-					{md && (
-						<Col span={24}>
-							<HighLightCard />
-						</Col>
-					)}
+		<Row gutter={[30, 30]} justify="center" style={{ padding: "40px 0px" }}>
+			{md && (
+				<Col span={24}>
+					<HighLightCard />
+				</Col>
+			)}
 
-					{md && (
-						<Col span={12}>
-							<Infomation dataReportChart={dataReportChart?.data || []} />
-						</Col>
-					)}
+			{md && (
+				<Col span={12}>
+					<Infomation dataReportChart={dataReportChart?.data || []} />
+				</Col>
+			)}
 
-					<Col xs={24} md={12}>
-						<Chart dataReportChart={dataReportChart?.data || []} />
-					</Col>
-
-					{md && (
-						<Col span={24}>
-							<BarChart />
-						</Col>
-					)}
-				</Row>
+			<Col xs={24} md={12}>
+				<Chart dataReportChart={dataReportChart?.data || []} />
 			</Col>
+
+			{md && (
+				<Col span={24}>
+					<BarChart />
+				</Col>
+			)}
 		</Row>
 	);
 };
