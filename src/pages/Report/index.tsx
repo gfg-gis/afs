@@ -197,8 +197,8 @@ export const Report = () => {
 
 		const { status, msg } = await updateReport(post).unwrap();
 		notification[status]({
-			message: status,
-			description: msg,
+			message: t(status),
+			description: t(msg),
 		});
 		setIsFilter(false);
 	};

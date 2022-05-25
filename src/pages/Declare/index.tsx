@@ -90,8 +90,8 @@ export const Declare = () => {
 
 		const { status, msg } = await createReport(post).unwrap();
 		notification[status]({
-			message: status,
-			description: msg,
+			message: t(status),
+			description: t(msg),
 		});
 		form.resetFields();
 	};

@@ -34,8 +34,8 @@ export const FormAdmin = () => {
 
 		const { status, msg } = await createUser(post).unwrap();
 		notification[status]({
-			message: status,
-			description: msg,
+			message: t(status),
+			description: t(msg),
 		});
 
 		form.resetFields();

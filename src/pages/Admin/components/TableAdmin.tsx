@@ -25,8 +25,8 @@ export const TableAdmin = () => {
 		}).unwrap();
 
 		notification[status]({
-			message: status,
-			description: msg,
+			message: t(status),
+			description: t(msg),
 		});
 	};
 
@@ -106,11 +106,6 @@ export const TableAdmin = () => {
 	];
 
 	return (
-		<Table
-			loading={isLoading}
-			columns={columns}
-			dataSource={data?.data || []}
-			scroll={{ x: true }}
-		/>
+		<Table loading={isLoading} columns={columns} dataSource={data?.data || []} scroll={{ x: true }} />
 	);
 };

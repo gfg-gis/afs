@@ -1,4 +1,10 @@
 {
+  "success": "Thành công",
+  "Created Successfully.": "Đã tạo thành công.",
+  "Updated Successfully.": "Đã cập nhật thành công.",
+  "Deleted Successfully.": "Đã xoá thành công.",
+  "error": "Thất bại",
+  "This user already exists.": "Người dùng này đã tồn tại.",
   "Infected Area": "Vùng nhiễm",
   "Diagram Of Infected Area": "Biểu đồ vùng nhiễm",
   "Disease Declaration": "Khai báo dịch bệnh",
