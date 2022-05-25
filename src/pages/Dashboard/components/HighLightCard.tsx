@@ -29,7 +29,12 @@ const CardCustom = ({ color, title, value }: CardCustomProps) => (
 export const HighLightCard = () => {
 	const { t } = useTranslation();
 
-	const { data } = useGetTotalReportsQuery();
+	const { data } = useGetTotalReportsQuery(
+		{ isTotal: 1 },
+		{
+			refetchOnMountOrArgChange: true,
+		}
+	);
 
 	return (
 		<Row gutter={[30, 30]}>

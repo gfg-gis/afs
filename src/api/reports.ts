@@ -71,11 +71,11 @@ const reports = api.injectEndpoints({
       },
     }),
 
-    getTotalReports: build.query<ResponseTotalReports, void>({
-      query: () => { 
+    getTotalReports: build.query<ResponseTotalReports, { isTotal: number }>({
+      query: (query) => { 
         return {
           url: "/reports",
-          params: { isTotal: 1 },
+          params: query,
         };
       },
     }),

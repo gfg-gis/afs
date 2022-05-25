@@ -1,4 +1,4 @@
-import { Radio, Space, Typography } from "antd";
+import { Radio, Space, Typography, Empty } from "antd";
 import { useGetReportChartQuery } from "api";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -14,7 +14,7 @@ const initOptions = {
 		enabled: false,
 	},
 	title: {
-		text: "",
+		text: null,
 	},
 	chart: {
 		type: "column",
@@ -133,7 +133,11 @@ export const BarChart = () => {
 					<Radio.Button value="month">{t("Month")}</Radio.Button>
 				</Radio.Group>
 			</div>
-			<HighchartsReact highcharts={Highcharts} options={options} ref={chartRef} />
+			{dataReportChart?.data?.length ? (
+				<HighchartsReact highcharts={Highcharts} options={options} ref={chartRef} />
+			) : (
+				<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+			)}
 		</Space>
 	);
 };
