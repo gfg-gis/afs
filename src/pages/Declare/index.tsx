@@ -61,7 +61,7 @@ export const Declare = () => {
 	const handleOnFinish = async (values: any) => {
 		const {
 			date: created_date,
-			disease: disease_id,
+			// disease: disease_id,
 			province: province_id,
 			district: district_id,
 			ward: ward_id,
@@ -76,7 +76,8 @@ export const Declare = () => {
 			report_date: moment(created_date).format("YYYY-MM-DD"),
 			created_name: userInfo?.fullName as string,
 			created_email: userInfo?.email as string,
-			disease_id,
+			// disease_id,
+			disease_id: 1,
 			province_id,
 			district_id,
 			ward_id,
@@ -136,6 +137,7 @@ export const Declare = () => {
 										<Form.Item
 											label={t("Disease Type")}
 											name={"disease"}
+											initialValue={"AFS"}
 											rules={[{ required: true, message: t("Please select disease type") }]}>
 											<Select
 												showSearch

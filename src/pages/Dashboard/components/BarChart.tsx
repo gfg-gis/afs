@@ -7,7 +7,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { COLOR_INFO } from "../../../constants";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const initOptions = {
 	accessibility: {
@@ -107,9 +107,14 @@ export const BarChart = () => {
 			}}>
 			<div
 				style={{ padding: 20, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-				<Title level={3} style={{ marginBottom: 0 }}>
-					{t("Infected Area By Day")}
-				</Title>
+				<Space direction="vertical">
+					<Title level={3} style={{ marginBottom: 0 }}>
+						{t("Infected Area By Day")}
+					</Title>
+					<Text type="secondary">
+						{moment(fromDate).format("DD/MM/YYYY")} - {moment().format("DD/MM/YYYY")}
+					</Text>
+				</Space>
 				<Radio.Group
 					value={size}
 					onChange={(e) => {
@@ -117,7 +122,7 @@ export const BarChart = () => {
 						setSize(value);
 						if (value === "day") {
 							setFromDate(moment().subtract(1, "days").format("YYYY-MM-DD"));
-						} else if (value === "Week") {
+						} else if (value === "week") {
 							setFromDate(moment().subtract(7, "days").format("YYYY-MM-DD"));
 						} else {
 							setFromDate(moment().subtract(30, "days").format("YYYY-MM-DD"));
