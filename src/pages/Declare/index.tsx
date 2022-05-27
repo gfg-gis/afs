@@ -190,10 +190,8 @@ export const Declare = () => {
 									</Col>
 
 									<Col xs={24} sm={12}>
-										<Form.Item
-											label={t("Street Name")}
-											name={"street_name"}
-											rules={[{ required: true, message: t("Please enter street name") }]}>
+										<Form.Item label={t("Street Name")} name={"street_name"}>
+											{/* rules={[{ required: true, message: t("Please enter street name") }]}> */}
 											<Input placeholder={t("Please enter street name")} />
 										</Form.Item>
 									</Col>
@@ -212,10 +210,8 @@ export const Declare = () => {
 									</Col>
 
 									<Col xs={24} sm={12}>
-										<Form.Item
-											label={t("Farm Name")}
-											name={"farm_name"}
-											rules={[{ required: true, message: t("Please enter farm name") }]}>
+										<Form.Item label={t("Farm Name")} name={"farm_name"}>
+											{/* rules={[{ required: true, message: t("Please enter farm name") }]}> */}
 											<Input placeholder={t("Please enter farm name")} />
 										</Form.Item>
 									</Col>

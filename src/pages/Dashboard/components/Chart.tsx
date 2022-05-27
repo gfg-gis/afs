@@ -1,8 +1,7 @@
 import { skipToken } from "@reduxjs/toolkit/dist/query";
-import { Modal, Table, Tag, Tooltip } from "antd";
+import { Modal, Table, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useGetReportChartHistoryQuery } from "api";
-import { formatUrlGoogleMap } from "helpers";
 import { Reports } from "models";
 import moment from "moment";
 import React, { useCallback, useState } from "react";
@@ -89,29 +88,29 @@ export const Chart = ({ dataReportChart }: ChartProps) => {
 				};
 			},
 		},
-		{
-			title: t("Farm Name"),
-			dataIndex: "farm_name",
-			key: "farm_name",
-			render: (farm_name, record) => (
-				<Tooltip
-					title={`${record.street_name} - ${record.ward} - ${record.district} - ${record.province}`}>
-					<a
-						target={"_blank"}
-						rel="noreferrer"
-						href={formatUrlGoogleMap(record.street_name, record.ward, record.district, record.province)}>
-						{farm_name}
-					</a>
-				</Tooltip>
-			),
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
-		},
+		// {
+		// 	title: t("Farm Name"),
+		// 	dataIndex: "farm_name",
+		// 	key: "farm_name",
+		// 	render: (farm_name, record) => (
+		// 		<Tooltip
+		// 			title={`${record.street_name} - ${record.ward} - ${record.district} - ${record.province}`}>
+		// 			<a
+		// 				target={"_blank"}
+		// 				rel="noreferrer"
+		// 				href={formatUrlGoogleMap(record.street_name, record.ward, record.district, record.province)}>
+		// 				{farm_name}
+		// 			</a>
+		// 		</Tooltip>
+		// 	),
+		// 	onCell: () => {
+		// 		return {
+		// 			style: {
+		// 				whiteSpace: "nowrap",
+		// 			},
+		// 		};
+		// 	},
+		// },
 		{
 			title: t("Farm Type"),
 			dataIndex: "farm_type",
@@ -138,6 +137,11 @@ export const Chart = ({ dataReportChart }: ChartProps) => {
 					},
 				};
 			},
+		},
+		{
+			title: t("Total Pigs"),
+			dataIndex: "total_pigs",
+			key: "total_pigs",
 		},
 	];
 

@@ -154,18 +154,19 @@ export const Report = () => {
 				);
 			},
 		},
-		{
-			title: t("Farm Name"),
-			dataIndex: "farm_name",
-			key: "farm_name",
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
-		},
+		// {
+		// 	title: t("Farm Name"),
+		// 	dataIndex: "farm_name",
+		// 	key: "farm_name",
+		// 	render: (farm_name) => <div style={{ minWidth: 100 }}>{farm_name ? farm_name : "-"}</div>,
+		// 	onCell: () => {
+		// 		return {
+		// 			style: {
+		// 				whiteSpace: "nowrap",
+		// 			},
+		// 		};
+		// 	},
+		// },
 		{
 			title: t("Total Pigs"),
 			dataIndex: "total_pigs",

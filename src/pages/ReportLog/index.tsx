@@ -1,5 +1,5 @@
-import { SearchOutlined } from "@ant-design/icons";
-import { Button, Col, DatePicker, Form, Input, Row, Table, Tag, Typography } from "antd";
+import { InfoCircleOutlined, SearchOutlined } from "@ant-design/icons";
+import { Button, Col, DatePicker, Form, Input, Row, Table, Tag, Tooltip, Typography } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useGetReportsQuery } from "api";
 import { ButtonCustom, TitleCustom } from "components";
@@ -142,25 +142,25 @@ export const ReportLog = () => {
 				);
 			},
 		},
-		{
-			title: t("Farm Name"),
-			dataIndex: "farm_name",
-			key: "farm_name",
-			render: (farm_name, record) => {
-				return (
-					<Button onClick={() => handleShowModal(record)} type="link">
-						{farm_name}
-					</Button>
-				);
-			},
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
-		},
+		// {
+		// 	title: t("Farm Name"),
+		// 	dataIndex: "farm_name",
+		// 	key: "farm_name",
+		// 	render: (farm_name, record) => {
+		// 		return (
+		// 			<Button style={{ minWidth: 100 }} onClick={() => handleShowModal(record)} type="link">
+		// 				{farm_name ? farm_name : "-"}
+		// 			</Button>
+		// 		);
+		// 	},
+		// 	onCell: () => {
+		// 		return {
+		// 			style: {
+		// 				whiteSpace: "nowrap",
+		// 			},
+		// 		};
+		// 	},
+		// },
 		{
 			title: t("Status"),
 			dataIndex: "infected",
@@ -179,6 +179,19 @@ export const ReportLog = () => {
 					<Tag color={color} key={infected}>
 						{infected === 1 ? t("Infected") : t("Not Infected")}
 					</Tag>
+				);
+			},
+		},
+		{
+			dataIndex: "detail",
+			key: "detail",
+			render: (detail, record) => {
+				return (
+					<Tooltip title={t("See details")}>
+						<Button style={{ minWidth: 100 }} onClick={() => handleShowModal(record)} type="link">
+							<InfoCircleOutlined />
+						</Button>
+					</Tooltip>
 				);
 			},
 		},
