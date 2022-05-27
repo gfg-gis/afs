@@ -1,4 +1,4 @@
-import { InfoCircleOutlined, SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, DatePicker, Form, Input, Row, Table, Tag, Tooltip, Typography } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useGetReportsQuery } from "api";
@@ -64,63 +64,35 @@ export const ReportLog = () => {
 			title: t("Report Date"),
 			dataIndex: "report_date",
 			key: "report_date",
-			render: (report_date) => moment(report_date).format(FORMAT_DATE),
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
+			render: (report_date) => (
+				<div style={{ whiteSpace: "nowrap" }}>{moment(report_date).format(FORMAT_DATE)}</div>
+			),
 		},
 		{
 			title: t("Created Time"),
 			dataIndex: "created_time",
 			key: "created_time",
-			render: (created_time) => moment(created_time).format(`H:mm:ss ${FORMAT_DATE}`),
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
+			render: (created_time) => (
+				<div style={{ whiteSpace: "nowrap" }}>{moment(created_time).format(`H:mm:ss ${FORMAT_DATE}`)}</div>
+			),
 		},
 		{
 			title: t("Province"),
 			dataIndex: "province",
 			key: "province",
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
+			render: (province) => <div style={{ whiteSpace: "nowrap" }}>{province}</div>,
 		},
 		{
 			title: t("District"),
 			dataIndex: "district",
 			key: "district",
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
+			render: (district) => <div style={{ whiteSpace: "nowrap" }}>{district}</div>,
 		},
 		{
 			title: t("Ward"),
 			dataIndex: "ward",
 			key: "ward",
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
+			render: (ward) => <div style={{ whiteSpace: "nowrap" }}>{ward}</div>,
 		},
 		{
 			title: t("Farm Type"),
@@ -136,31 +108,26 @@ export const ReportLog = () => {
 				}
 
 				return (
-					<Tag color={color} key={tag}>
-						{t(tag)}
-					</Tag>
+					<div style={{ whiteSpace: "nowrap" }}>
+						<Tag color={color} key={tag}>
+							{t(tag)}
+						</Tag>
+					</div>
 				);
 			},
 		},
-		// {
-		// 	title: t("Farm Name"),
-		// 	dataIndex: "farm_name",
-		// 	key: "farm_name",
-		// 	render: (farm_name, record) => {
-		// 		return (
-		// 			<Button style={{ minWidth: 100 }} onClick={() => handleShowModal(record)} type="link">
-		// 				{farm_name ? farm_name : "-"}
-		// 			</Button>
-		// 		);
-		// 	},
-		// 	onCell: () => {
-		// 		return {
-		// 			style: {
-		// 				whiteSpace: "nowrap",
-		// 			},
-		// 		};
-		// 	},
-		// },
+		{
+			title: t("Total Pigs"),
+			dataIndex: "total_pigs",
+			key: "total_pigs",
+			render: (total_pigs, record) => (
+				<Tooltip title={t("See details")}>
+					<Button style={{ whiteSpace: "nowrap" }} onClick={() => handleShowModal(record)} type="link">
+						{total_pigs}
+					</Button>
+				</Tooltip>
+			),
+		},
 		{
 			title: t("Status"),
 			dataIndex: "infected",
@@ -176,22 +143,11 @@ export const ReportLog = () => {
 				}
 
 				return (
-					<Tag color={color} key={infected}>
-						{infected === 1 ? t("Infected") : t("Not Infected")}
-					</Tag>
-				);
-			},
-		},
-		{
-			dataIndex: "detail",
-			key: "detail",
-			render: (detail, record) => {
-				return (
-					<Tooltip title={t("See details")}>
-						<Button style={{ minWidth: 100 }} onClick={() => handleShowModal(record)} type="link">
-							<InfoCircleOutlined />
-						</Button>
-					</Tooltip>
+					<div style={{ whiteSpace: "nowrap" }}>
+						<Tag color={color} key={infected}>
+							{infected === 1 ? t("Infected") : t("Not Infected")}
+						</Tag>
+					</div>
 				);
 			},
 		},

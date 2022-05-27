@@ -76,63 +76,35 @@ export const Report = () => {
 			title: t("Report Date"),
 			dataIndex: "report_date",
 			key: "report_date",
-			render: (report_date) => moment(report_date).format(FORMAT_DATE),
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
+			render: (report_date) => (
+				<div style={{ whiteSpace: "nowrap" }}>{moment(report_date).format(FORMAT_DATE)}</div>
+			),
 		},
 		{
 			title: t("Created Time"),
 			dataIndex: "created_time",
 			key: "created_time",
-			render: (created_time) => moment(created_time).format(`H:mm:ss ${FORMAT_DATE}`),
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
+			render: (created_time) => (
+				<div style={{ whiteSpace: "nowrap" }}>{moment(created_time).format(`H:mm:ss ${FORMAT_DATE}`)}</div>
+			),
 		},
 		{
 			title: t("Province"),
 			dataIndex: "province",
 			key: "province",
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
+			render: (province) => <div style={{ whiteSpace: "nowrap" }}>{province}</div>,
 		},
 		{
 			title: t("District"),
 			dataIndex: "district",
 			key: "district",
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
+			render: (district) => <div style={{ whiteSpace: "nowrap" }}>{district}</div>,
 		},
 		{
 			title: t("Ward"),
 			dataIndex: "ward",
 			key: "ward",
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
+			render: (ward) => <div style={{ whiteSpace: "nowrap" }}>{ward}</div>,
 		},
 		{
 			title: t("Farm Type"),
@@ -148,25 +120,14 @@ export const Report = () => {
 				}
 
 				return (
-					<Tag color={color} key={tag}>
-						{t(tag)}
-					</Tag>
+					<div style={{ whiteSpace: "nowrap" }}>
+						<Tag color={color} key={tag}>
+							{t(tag)}
+						</Tag>
+					</div>
 				);
 			},
 		},
-		// {
-		// 	title: t("Farm Name"),
-		// 	dataIndex: "farm_name",
-		// 	key: "farm_name",
-		// 	render: (farm_name) => <div style={{ minWidth: 100 }}>{farm_name ? farm_name : "-"}</div>,
-		// 	onCell: () => {
-		// 		return {
-		// 			style: {
-		// 				whiteSpace: "nowrap",
-		// 			},
-		// 		};
-		// 	},
-		// },
 		{
 			title: t("Total Pigs"),
 			dataIndex: "total_pigs",
