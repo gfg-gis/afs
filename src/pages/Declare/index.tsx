@@ -21,8 +21,9 @@ import {
 } from "api";
 import { ButtonCustom, TitleCustom } from "components";
 import { removeAccents } from "helpers";
+import { Wards } from "models";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "store";
 import { COLOR_GREEN, FARM_TYPE, FORMAT_DATE } from "../../constants";
@@ -46,15 +47,25 @@ export const Declare = () => {
 	);
 	const { data: dataWards } = useGetWardsQuery(valueDistrict ? { maqh: valueDistrict } : skipToken);
 
+	const [newDataWards, setNewDataWards] = useState<Wards[]>([]);
+
 	const [createReport, { isLoading }] = useCreateReportMutation();
+
+	useEffect(() => {
+		if (!dataWards?.data) return;
+
+		setNewDataWards(dataWards.data);
+	}, [dataWards]);
 
 	const handleSelectProvince = (value: string) => {
 		setValueProvince(value);
+		setNewDataWards([]);
 		form.setFieldsValue({ district: null, ward: null });
 	};
 
 	const handleSelectDistrict = (value: string) => {
 		setValueDistrict(value);
+		setNewDataWards([]);
 		form.setFieldsValue({ ward: null });
 	};
 
@@ -183,7 +194,7 @@ export const Declare = () => {
 											<Select
 												showSearch
 												placeholder={t("Please select ward")}
-												options={dataWards?.data?.map((item) => ({ label: item.name, value: item.xaid })) ?? []}
+												options={newDataWards.map((item) => ({ label: item.name, value: item.xaid })) ?? []}
 												optionFilterProp="label"
 												filterOption={handleSelectFilter}></Select>
 										</Form.Item>
