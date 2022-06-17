@@ -148,7 +148,7 @@ export const Declare = () => {
 										<Form.Item
 											label={t("Disease Type")}
 											name={"disease"}
-											initialValue={"AFS"}
+											initialValue={"ASF"}
 											rules={[{ required: true, message: t("Please select disease type") }]}>
 											<Select
 												showSearch
