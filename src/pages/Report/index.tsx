@@ -1,4 +1,10 @@
-import { DeleteTwoTone, QuestionCircleOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+	DeleteTwoTone,
+	DownloadOutlined,
+	QuestionCircleOutlined,
+	SearchOutlined,
+} from "@ant-design/icons";
+
 import {
 	Col,
 	DatePicker,
@@ -7,6 +13,7 @@ import {
 	notification,
 	Popconfirm,
 	Row,
+	Space,
 	Table,
 	Tag,
 	Typography,
@@ -17,9 +24,10 @@ import { ButtonCustom, TitleCustom } from "components";
 import { removeAccents } from "helpers";
 import { Reports } from "models";
 import moment, { Moment } from "moment";
-import React, { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "store";
+import { exportToCSV } from "utils/export";
 import { COLOR_GREEN, FORMAT_DATE } from "../../constants";
 
 const { Text } = Typography;
@@ -28,6 +36,7 @@ export const Report = () => {
 	const { t } = useTranslation();
 
 	const userInfo = useAppSelector((state) => state.user.info);
+	const userRole = useAppSelector((state) => state.user.role);
 
 	const [fromDate, setFromDate] = useState(moment().subtract(1, "days").format(FORMAT_DATE));
 	const [toDate, setToDate] = useState(moment().format(FORMAT_DATE));
@@ -36,11 +45,22 @@ export const Report = () => {
 
 	const [form] = Form.useForm();
 
-	const params = {
-		from_date: moment(fromDate, FORMAT_DATE).format("YYYY-MM-DD"),
-		to_date: moment(toDate, FORMAT_DATE).format("YYYY-MM-DD"),
-		infected: 1,
-	};
+	const params = useMemo(() => {
+		if (!userRole) {
+			return {
+				from_date: moment(fromDate, FORMAT_DATE).format("YYYY-MM-DD"),
+				to_date: moment(toDate, FORMAT_DATE).format("YYYY-MM-DD"),
+				created_email: userInfo?.email,
+				infected: 1,
+			};
+		}
+
+		return {
+			from_date: moment(fromDate, FORMAT_DATE).format("YYYY-MM-DD"),
+			to_date: moment(toDate, FORMAT_DATE).format("YYYY-MM-DD"),
+			infected: 1,
+		};
+	}, [fromDate, toDate, userRole, userInfo]);
 
 	const { data, isLoading, isFetching } = useGetReportsQuery(params, {
 		skip: isFilter,
@@ -65,7 +85,8 @@ export const Report = () => {
 				removeAccents(item.district).includes(removeAccents(valueSearch)) ||
 				removeAccents(item.ward).includes(removeAccents(valueSearch)) ||
 				removeAccents(item.farm_name).includes(removeAccents(valueSearch)) ||
-				removeAccents(item.farm_type).includes(removeAccents(valueSearch))
+				removeAccents(item.farm_type).includes(removeAccents(valueSearch)) ||
+				removeAccents(item.created_name).includes(removeAccents(valueSearch))
 		);
 
 		setDataSource(newData as Reports[]);
@@ -87,6 +108,12 @@ export const Report = () => {
 			render: (created_time) => (
 				<div style={{ whiteSpace: "nowrap" }}>{moment(created_time).format(`H:mm:ss ${FORMAT_DATE}`)}</div>
 			),
+		},
+		{
+			title: t("Created By"),
+			dataIndex: "created_name",
+			key: "created_name",
+			render: (created_name) => <div style={{ whiteSpace: "nowrap" }}>{created_name}</div>,
 		},
 		{
 			title: t("Province"),
@@ -186,6 +213,73 @@ export const Report = () => {
 		setToDate(moment(value).format(FORMAT_DATE));
 	};
 
+	const handleExportCSV = () => {
+		const Heading = [
+			{
+				stt: "STT",
+				report_date: t("Report Date"),
+				created_time: t("Created Time"),
+				created_name: t("Created By"),
+				province: t("Province"),
+				district: t("District"),
+				ward: t("Ward"),
+				farm_type: t("Farm Type"),
+				farm_name: t("Farm Name"),
+				total_pigs: t("Total Pigs"),
+			},
+		];
+
+		const header = Object.keys(Heading[0]);
+
+		const newData = dataSource.map((item, index) => ({
+			stt: ++index,
+			report_date: item.report_date,
+			created_time: item.created_time,
+			created_name: item.created_name,
+			province: item.province,
+			district: item.district,
+			ward: item.ward,
+			farm_type: item.farm_type,
+			farm_name: !item.farm_name.length ? "-" : item.farm_name,
+			total_pigs: item.total_pigs,
+		}));
+
+		const wscols = [
+			{
+				wch: Math.max(...newData.map((item) => item.stt.toString().length)) + 5,
+			},
+			{
+				wch: Math.max(...newData.map((item) => item.report_date.toString().length)),
+			},
+			{
+				wch: Math.max(...newData.map((item) => item.created_time.toString().length)),
+			},
+			{
+				wch: Math.max(...newData.map((item) => item.created_name.toString().length)) + 5,
+			},
+			{
+				wch: Math.max(...newData.map((item) => item.province.toString().length)) + 5,
+			},
+			{
+				wch: Math.max(...newData.map((item) => item.district.toString().length)) + 5,
+			},
+			{
+				wch: Math.max(...newData.map((item) => item.ward.toString().length)) + 5,
+			},
+			{
+				wch: Math.max(...newData.map((item) => item.farm_type.toString().length)) + 5,
+			},
+			{
+				wch: Math.max(...newData.map((item) => item.farm_name.toString().length)) + 15,
+			},
+			{
+				wch: Math.max(...newData.map((item) => item.total_pigs.toString().length)) + 10,
+			},
+		];
+
+		exportToCSV(newData, Heading, header, "fileName", wscols);
+	};
+
 	return (
 		<Row
 			gutter={[0, 20]}
@@ -203,7 +297,17 @@ export const Report = () => {
 						boxShadow: "0 .125rem .25rem rgba(0,0,0,.075)",
 					}}>
 					<Col span={24}>
-						<TitleCustom level={3}>{t("List Of Infected Farms")}</TitleCustom>
+						<Space style={{ width: "100%", justifyContent: "space-between", marginBottom: 20 }}>
+							<TitleCustom level={3}>{t("List Of Infected Farms")}</TitleCustom>
+							<ButtonCustom
+								style={{ display: "none" }}
+								onClick={handleExportCSV}
+								shape="round"
+								type="primary"
+								icon={<DownloadOutlined />}>
+								{t("Export CSV")}
+							</ButtonCustom>
+						</Space>
 					</Col>
 					<Col span={24}>
 						<Form

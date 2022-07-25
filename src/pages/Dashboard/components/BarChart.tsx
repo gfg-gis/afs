@@ -1,13 +1,12 @@
-import { Radio, Space, Typography, Empty } from "antd";
+import { Empty, Space, Typography } from "antd";
 import { useGetReportChartQuery } from "api";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import moment from "moment";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { COLOR_INFO } from "../../../constants";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const initOptions = {
 	accessibility: {
@@ -56,11 +55,16 @@ const initOptions = {
 	],
 };
 
-export const BarChart = () => {
+interface BarChartProps {
+	fromDate: string;
+	toDate: string;
+}
+
+export const BarChart = ({ fromDate, toDate }: BarChartProps) => {
 	const { t } = useTranslation();
 
-	const [size, setSize] = useState("day");
-	const [fromDate, setFromDate] = useState(moment().subtract(1, "days").format("YYYY-MM-DD"));
+	// const [size, setSize] = useState("day");
+	// const [fromDate, setFromDate] = useState(moment().subtract(1, "days").format("YYYY-MM-DD"));
 	const [options, setOptions] = useState({});
 
 	const chartRef = useRef<HighchartsReact.RefObject>(null);
@@ -68,9 +72,9 @@ export const BarChart = () => {
 	const { data: dataReportChart } = useGetReportChartQuery(
 		{
 			infected: 1,
-			isChart: true,
+			isChartBar: true,
 			from_date: fromDate,
-			to_date: moment().format("YYYY-MM-DD"),
+			to_date: toDate,
 		},
 		{ refetchOnMountOrArgChange: true }
 	);
@@ -109,13 +113,13 @@ export const BarChart = () => {
 				style={{ padding: 20, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 				<Space direction="vertical">
 					<Title level={3} style={{ marginBottom: 0 }}>
-						{t("Infected Area By Day")}
+						{t("Infected Area")}
 					</Title>
-					<Text type="secondary">
+					{/* <Text type="secondary">
 						{moment(fromDate).format("DD/MM/YYYY")} - {moment().format("DD/MM/YYYY")}
-					</Text>
+					</Text> */}
 				</Space>
-				<Radio.Group
+				{/* <Radio.Group
 					value={size}
 					onChange={(e) => {
 						const value = e.target.value;
@@ -131,7 +135,7 @@ export const BarChart = () => {
 					<Radio.Button value="day">{t("Day")}</Radio.Button>
 					<Radio.Button value="week">{t("Week")}</Radio.Button>
 					<Radio.Button value="month">{t("Month")}</Radio.Button>
-				</Radio.Group>
+				</Radio.Group> */}
 			</div>
 			{dataReportChart?.data?.length ? (
 				<HighchartsReact highcharts={Highcharts} options={options} ref={chartRef} />

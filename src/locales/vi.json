@@ -81,5 +81,10 @@
   "Are you sure delete": "Bạn có chắc chắn xóa",
   "Yes": "Có",
   "No": "Không",
-  "See details": "Xem chi tiết"
+  "See details": "Xem chi tiết",
+  "Infected Zone": "Vùng bị nhiễm",
+  "Not Infected Zone": "Vùng hết bị nhiễm",
+  "Surveillance Zone": "Vùng giám sát",
+  "ASF Zoning Status": "Trạng thái phân vùng ASF",
+  "Export CSV": "Xuất File CSV"
 }

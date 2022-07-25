@@ -26,11 +26,16 @@ const CardCustom = ({ color, title, value }: CardCustomProps) => (
 	</Card>
 );
 
-export const HighLightCard = () => {
+interface HighLightCardProps {
+	fromDate: string;
+	toDate: string;
+}
+
+export const HighLightCard = ({ fromDate, toDate }: HighLightCardProps) => {
 	const { t } = useTranslation();
 
 	const { data } = useGetTotalReportsQuery(
-		{ isTotal: 1 },
+		{ isTotal: 1, from_date: fromDate, to_date: toDate },
 		{
 			refetchOnMountOrArgChange: true,
 		}

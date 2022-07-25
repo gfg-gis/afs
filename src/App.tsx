@@ -60,22 +60,8 @@ const App = () => {
 					<Route element={<AdminLayout />}>
 						<Route path="/dashboard" element={<Dashboard />} />
 						<Route path="/declare" element={<Declare />} />
-						<Route
-							path="/report"
-							element={
-								<ProtectedRoute>
-									<Report />
-								</ProtectedRoute>
-							}
-						/>
-						<Route
-							path="/report-log"
-							element={
-								<ProtectedRoute>
-									<ReportLog />
-								</ProtectedRoute>
-							}
-						/>
+						<Route path="/report" element={<Report />} />
+						<Route path="/report-log" element={<ReportLog />} />
 						<Route
 							path="/admin"
 							element={

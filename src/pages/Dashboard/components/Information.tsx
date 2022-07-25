@@ -1,29 +1,22 @@
 import { Col, Row, Space, Table, Typography } from "antd";
-import React from "react";
+import { useGetReportChartQuery } from "api";
 import { useTranslation } from "react-i18next";
 import { COLOR_DANGER } from "../../../constants";
 
 const { Title } = Typography;
 
-interface DataReportChart {
-	code: string;
-	id: number;
-	key: number;
-	matp: string;
-	province: string;
-	value: number;
-	dataArea?: {
-		district: Array<string>;
-		value: Array<number>;
-	};
-}
-
-interface InfomationProps {
-	dataReportChart: DataReportChart[];
-}
-
-export const Infomation = ({ dataReportChart }: InfomationProps) => {
+export const Infomation = () => {
 	const { t } = useTranslation();
+
+	const { data: dataReportChart } = useGetReportChartQuery(
+		{
+			infected: 1,
+			isChartBar: true,
+			// from_date: fromDate,
+			// to_date: moment().format("YYYY-MM-DD"),
+		},
+		{ refetchOnMountOrArgChange: true }
+	);
 
 	const columns = [
 		{
@@ -57,7 +50,7 @@ export const Infomation = ({ dataReportChart }: InfomationProps) => {
 						</Title>
 					</Space>
 					<Table
-						dataSource={dataReportChart}
+						dataSource={dataReportChart?.data || []}
 						columns={columns}
 						pagination={false}
 						scroll={{ x: true, y: 500 }}

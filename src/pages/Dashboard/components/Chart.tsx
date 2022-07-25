@@ -16,6 +16,7 @@ interface DataReportChart {
 	matp: string;
 	province: string;
 	value: number;
+	infected: number;
 }
 
 interface ChartProps {
@@ -33,7 +34,7 @@ export const Chart = ({ dataReportChart }: ChartProps) => {
 		provinceId
 			? {
 					province_id: provinceId,
-					infected: 1,
+					// infected: 1,
 			  }
 			: skipToken
 	);
@@ -52,18 +53,18 @@ export const Chart = ({ dataReportChart }: ChartProps) => {
 				};
 			},
 		},
-		{
-			title: t("Province"),
-			dataIndex: "province",
-			key: "province",
-			onCell: () => {
-				return {
-					style: {
-						whiteSpace: "nowrap",
-					},
-				};
-			},
-		},
+		// {
+		// 	title: t("Province"),
+		// 	dataIndex: "province",
+		// 	key: "province",
+		// 	onCell: () => {
+		// 		return {
+		// 			style: {
+		// 				whiteSpace: "nowrap",
+		// 			},
+		// 		};
+		// 	},
+		// },
 		{
 			title: t("District"),
 			dataIndex: "district",
@@ -143,6 +144,29 @@ export const Chart = ({ dataReportChart }: ChartProps) => {
 			dataIndex: "total_pigs",
 			key: "total_pigs",
 		},
+		{
+			title: t("Status"),
+			dataIndex: "infected",
+			key: "infected",
+			render: (infected) => {
+				// let color = "#f50";
+				let color = "#ff4d4f";
+
+				if (infected === 0) {
+					// color = "#87d068";
+					color = "#4BB543";
+					// color = "#389e0d";
+				}
+
+				return (
+					<div style={{ whiteSpace: "nowrap" }}>
+						<Tag color={color} key={infected}>
+							{infected === 1 ? t("Infected") : t("Not Infected")}
+						</Tag>
+					</div>
+				);
+			},
+		},
 	];
 
 	const handleClickChart = useCallback((this_: any) => {
@@ -165,7 +189,7 @@ export const Chart = ({ dataReportChart }: ChartProps) => {
 				visible={isModalVisible}>
 				<Table columns={columns} dataSource={data?.data || []} loading={isLoading} scroll={{ x: 400 }} />
 			</Modal>
-			<MapChart handleClickChart={handleClickChart} dataReportChart={dataReportChart} />
+			<MapChart handleClickChart={handleClickChart} dataReportChart={dataReportChart || []} />
 		</>
 	);
 };
