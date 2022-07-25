@@ -240,10 +240,10 @@ export const ReportLog = () => {
 
 		const newData = dataSource.map((item, index) => ({
 			stt: (++index).toString(),
-			report_date: item.report_date,
-			created_time: item.created_time,
+			report_date: moment(item.report_date).format("DD-MM-YYYY"),
+			created_time: moment(item.created_time).format("DD-MM-YYYY"),
 			created_name: item.created_name,
-			updated_time: item.updated_name ? item.updated_time : "-",
+			updated_time: item.updated_name ? moment(item.updated_time).format("DD-MM-YYYY") : "-",
 			updated_name: item.updated_name ? item.updated_name : "-",
 			province: item.province,
 			district: item.district,
