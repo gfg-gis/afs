@@ -47,7 +47,7 @@ const reports = api.injectEndpoints({
 				method: "PATCH",
 				body: JSON.stringify(credentials),
 			}),
-			invalidatesTags: ["Report"],
+			invalidatesTags: ["Province"],
 		}),
 
 		// getReports: build.query<Response<Reports>, { from_date: string, to_date: string, infected?: number }>({
@@ -87,6 +87,7 @@ const reports = api.injectEndpoints({
 					params: query,
 				};
 			},
+			providesTags: ["Province"],
 		}),
 	}),
 });

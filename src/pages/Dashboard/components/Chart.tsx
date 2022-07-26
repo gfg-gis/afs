@@ -176,6 +176,7 @@ export const Chart = ({ dataReportChart }: ChartProps) => {
 	}, []);
 
 	const handleCancel = () => {
+		setProvinceId(null);
 		setIsModalVisible(false);
 	};
 
