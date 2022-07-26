@@ -131,5 +131,11 @@ body {
     font-family: "SVN-Gotham";
     max-width: 1400px;
     margin: auto;
-    overflow-x: hidden;
+    overflow-x: hidden; 
+}  
+
+@media only screen and (max-width: 1400px) {
+    .main-container {
+        padding: 0 20px;
+    }
 } 

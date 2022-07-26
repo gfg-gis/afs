@@ -15,47 +15,51 @@ import { useAppDispatch, useAppSelector } from "store";
 import { updateAccessToken } from "slice";
 
 export const AdminLayout = () => {
-   const dispatch = useAppDispatch();
-   const accessToken = useAppSelector(state => state.user.accessToken);
-   const userInfo = useAppSelector(state => state.user.info);
+	const dispatch = useAppDispatch();
+	const accessToken = useAppSelector((state) => state.user.accessToken);
+	const userInfo = useAppSelector((state) => state.user.info);
 
-   const isAuthenticated = useIsAuthenticated();
-   const { instance, accounts } = useMsal();
+	const isAuthenticated = useIsAuthenticated();
+	const { instance, accounts } = useMsal();
 
-   const { isLoading: isLoadingGetUserInfoByOutLook, isError } = useGetUserInfoByOutLookQuery(accessToken);
-   const { isLoading: isLoadingGetUserRoleByEmail } = useGetUserRoleByEmailQuery(userInfo?.email ?? skipToken);
+	const { isLoading: isLoadingGetUserInfoByOutLook, isError } =
+		useGetUserInfoByOutLookQuery(accessToken);
+	const { isLoading: isLoadingGetUserRoleByEmail } = useGetUserRoleByEmailQuery(
+		userInfo?.email ?? skipToken
+	);
 
+	useEffect(() => {
+		if (!isError) return;
 
-   useEffect(() => {
-      if (!isError) return;
+		const requestAccessToken = async () => {
+			if (!isAuthenticated || !accounts || !accounts.length) return;
 
-      const requestAccessToken = async () => {
-         if (!isAuthenticated || !accounts || !accounts.length) return;
+			const request = {
+				...loginRequest,
+				account: accounts[0],
+			};
 
-         const request = {
-            ...loginRequest,
-            account: accounts[0],
-         };
+			instance
+				.acquireTokenSilent(request)
+				.then((response: AuthenticationResult) => {
+					dispatch(updateAccessToken(response.accessToken));
+				})
+				.catch((e) => {
+					console.log(e);
+				});
+		};
 
-         instance
-            .acquireTokenSilent(request)
-            .then((response: AuthenticationResult) => {
-               dispatch(updateAccessToken(response.accessToken));
-            })
-            .catch((e) => {
-               console.log(e);
-            });
-      };
+		requestAccessToken();
+	}, [isError, dispatch, instance, isAuthenticated, accounts]);
 
-      requestAccessToken();
-   }, [isError, dispatch, instance, isAuthenticated, accounts]);
+	if (isLoadingGetUserInfoByOutLook || isLoadingGetUserRoleByEmail) return <PageLoading />;
 
-   if (isLoadingGetUserInfoByOutLook || isLoadingGetUserRoleByEmail) return <PageLoading />;
-
-   return (
-      <>
-         <Header />
-         <Outlet />
-      </>
-   );
+	return (
+		<>
+			<Header />
+			<div className="main-container">
+				<Outlet />
+			</div>
+		</>
+	);
 };
